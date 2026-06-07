@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, Github, X } from "lucide-react";
+import { ArrowUpRight, Github, Lock, X } from "lucide-react";
 import GlassCard from "@/components/ui/GlassCard";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -75,6 +75,11 @@ export default function Projects() {
                     <Github size={15} /> {l.label}
                   </a>
                 ))}
+                {p.links.length === 0 && p.org && (
+                  <span className="inline-flex items-center gap-1 text-sm text-ink-500">
+                    <Lock size={14} /> Private · {p.org}
+                  </span>
+                )}
               </div>
             </GlassCard>
           </Reveal>
@@ -156,6 +161,11 @@ export default function Projects() {
                     <Github size={16} /> {l.label}
                   </a>
                 ))}
+                {active.links.length === 0 && active.org && (
+                  <span className="inline-flex items-center gap-2 rounded-full glass px-5 py-2.5 text-sm text-ink-300">
+                    <Lock size={16} /> Private codebase · {active.org}
+                  </span>
+                )}
               </div>
             </motion.div>
           </motion.div>

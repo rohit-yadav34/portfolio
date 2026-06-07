@@ -6,6 +6,8 @@ export interface Project {
   stack: string[];
   highlights: string[];
   links: { label: string; href: string }[];
+  /** Employer/internship this was built under (private codebase, no public repo). */
+  org?: string;
   /** Layout span in the bento grid (1 = standard, 2 = wide). */
   span: 1 | 2;
 }
@@ -51,7 +53,8 @@ export const projects: Project[] = [
       "Designed an autonomous multi-agent system using LangGraph to orchestrate complex multi-step reasoning across distributed APIs and databases.",
       "Improved data accessibility and business decision-making via an adaptive, agent-driven framework for conversational analysis.",
     ],
-    links: [{ label: "GitHub", href: "https://github.com/rohit-yadav34/NL2SQL" }],
+    links: [],
+    org: "Lepton Software",
     span: 1,
   },
   {
@@ -65,7 +68,8 @@ export const projects: Project[] = [
       "Built a FastAPI backend that dynamically loads and processes data from Google Sheets, using the Gemini API for intelligent text analysis.",
       "Optimized retrieval workflows with Elasticsearch for highly accurate, real-time fuzzy matching and API-driven lookup.",
     ],
-    links: [{ label: "GitHub", href: "https://github.com/rohit-yadav34/sheet-address-align" }],
+    links: [],
+    org: "Lepton Software",
     span: 2,
   },
 ];
