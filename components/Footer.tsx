@@ -9,9 +9,14 @@ export default function Footer() {
     <footer className="relative mx-auto max-w-6xl px-5 pb-10">
       <div className="glass flex flex-col items-center gap-6 p-8 text-center sm:flex-row sm:justify-between sm:text-left">
         <div className="flex items-center gap-3">
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-accent font-display text-sm font-bold text-black">
-            RY
-          </span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={site.avatar}
+            alt={site.name}
+            width={36}
+            height={36}
+            className="h-9 w-9 rounded-full object-cover ring-1 ring-white/15"
+          />
           <span className="text-sm text-ink-300">
             {site.name} · Built with Next.js + Framer Motion
           </span>

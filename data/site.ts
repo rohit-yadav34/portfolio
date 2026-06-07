@@ -9,6 +9,7 @@ export const site = {
   location: "Haryana, India",
   email: "rohityadav.nitkkr@gmail.com",
   resumeUrl: "/Rohit_Yadav_resume.pdf",
+  avatar: "/file_00000000197472069b02aba54d23f882-Photoroom.png",
   education: {
     school: "National Institute of Technology, Kurukshetra",
     degree: "B.Tech, Computer Science & Engineering",

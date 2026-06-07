@@ -5,7 +5,7 @@ import Link from "next/link";
 import { User, Briefcase, FolderGit2, Wrench, Award, Mail } from "lucide-react";
 import { NavBar, type NavItem } from "@/components/ui/tubelight-navbar";
 import { ThemeSwitcher } from "@/components/ui/apple-liquid-glass-switcher";
-import { navLinks } from "@/data/site";
+import { navLinks, site } from "@/data/site";
 
 type Theme = "light" | "dark" | "dim";
 
@@ -69,9 +69,14 @@ export default function Navbar() {
       <nav className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5">
         {/* logo */}
         <Link href="#top" className="group flex items-center gap-2">
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-accent font-display text-sm font-bold text-black">
-            RY
-          </span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={site.avatar}
+            alt={site.name}
+            width={36}
+            height={36}
+            className="h-9 w-9 rounded-full object-cover ring-1 ring-white/15 transition-transform duration-300 group-hover:scale-105"
+          />
           <span className="hidden font-display text-sm font-medium tracking-wide text-ink-100 sm:block">
             Rohit Yadav
           </span>
