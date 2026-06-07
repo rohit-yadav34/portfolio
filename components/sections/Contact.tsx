@@ -98,7 +98,7 @@ export default function Contact() {
         </Reveal>
 
         <Reveal index={1}>
-          <GlassCard className="p-8">
+          <GlassCard className="p-6 sm:p-8">
             {status === "success" ? (
               <div className="flex h-full flex-col items-center justify-center py-10 text-center">
                 <CheckCircle2 size={48} className="text-neon-cyan" />
@@ -166,7 +166,7 @@ export default function Contact() {
                 )}
 
                 <div className="flex justify-center pt-1">
-                  <SlideButton label="Slide to send message" onComplete={submit} />
+                  <SlideButton label="Slide to send" onComplete={submit} />
                 </div>
               </form>
             )}

@@ -82,8 +82,12 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {/* tubelight navbar */}
-        <NavBar items={items} active={active} />
+        {/* tubelight navbar — floats at the bottom on mobile, inline on desktop */}
+        <NavBar
+          items={items}
+          active={active}
+          className="fixed inset-x-0 bottom-5 z-50 px-4 lg:static lg:inset-x-auto lg:bottom-auto lg:px-0"
+        />
 
         {/* liquid-glass theme switcher */}
         <div className="shrink-0">

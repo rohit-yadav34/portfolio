@@ -6,7 +6,7 @@ import { site, navLinks } from "@/data/site";
 
 export default function Footer() {
   return (
-    <footer className="relative mx-auto max-w-6xl px-5 pb-10">
+    <footer className="relative mx-auto max-w-6xl px-5 pb-28 lg:pb-10">
       <div className="glass flex flex-col items-center gap-6 p-8 text-center sm:flex-row sm:justify-between sm:text-left">
         <div className="flex items-center gap-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}

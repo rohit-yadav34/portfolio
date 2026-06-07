@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   AnimatePresence,
   motion,
@@ -12,18 +12,16 @@ import {
 import { Check, Loader2, SendHorizontal, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const TRACK = 280; // px — track width
 const THUMB = 40; // px — draggable thumb size
 const PAD = 4; // px — inner padding on each side
-const MAX = TRACK - THUMB - PAD * 2;
 const THRESHOLD = 0.9;
 
 type Status = "idle" | "loading" | "success" | "error";
 
 /**
  * Slide-to-confirm button (reuno-ui style) with a liquid-glass track.
- * Drag the thumb across the threshold to fire `onComplete`. The button then
- * shows loading → success / error based on the promise it returns.
+ * The track measures its own width, so it stays usable on any screen size.
+ * Drag the thumb across the threshold to fire `onComplete`.
  */
 export default function SlideButton({
   label = "Slide to send",
@@ -38,11 +36,32 @@ export default function SlideButton({
   const [completed, setCompleted] = useState(false);
   const [dragging, setDragging] = useState(false);
 
+  const rootRef = useRef<HTMLDivElement>(null);
+  const maxRef = useRef(0);
+  const [maxX, setMaxX] = useState(0);
+
+  // Measure available travel distance and keep it in sync with the layout.
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
+    const measure = () => {
+      const m = Math.max(0, el.clientWidth - THUMB - PAD * 2);
+      maxRef.current = m;
+      setMaxX(m);
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   const dragX = useMotionValue(0);
   const springX = useSpring(dragX, { stiffness: 400, damping: 40, mass: 0.8 });
-  const progress = useTransform(springX, [0, MAX], [0, 1]);
   const fillWidth = useTransform(springX, (x) => x + THUMB + PAD);
-  const labelOpacity = useTransform(springX, [0, MAX * 0.6], [1, 0]);
+  const labelOpacity = useTransform(springX, (x) => {
+    const m = maxRef.current || 1;
+    return Math.max(0, 1 - x / (m * 0.55));
+  });
 
   const finish = useCallback(async () => {
     setCompleted(true);
@@ -65,13 +84,14 @@ export default function SlideButton({
     info: PanInfo
   ) => {
     if (completed) return;
-    dragX.set(Math.max(0, Math.min(info.offset.x, MAX)));
+    dragX.set(Math.max(0, Math.min(info.offset.x, maxRef.current)));
   };
 
   const handleDragEnd = () => {
     if (completed) return;
     setDragging(false);
-    if (progress.get() >= THRESHOLD) {
+    const m = maxRef.current;
+    if (m > 0 && springX.get() / m >= THRESHOLD) {
       void finish();
     } else {
       dragX.set(0);
@@ -80,11 +100,11 @@ export default function SlideButton({
 
   return (
     <div
+      ref={rootRef}
       className={cn(
-        "liquid-glass relative flex h-12 items-center rounded-full",
+        "liquid-glass relative flex h-12 w-full max-w-[300px] items-center rounded-full",
         className
       )}
-      style={{ width: TRACK, maxWidth: "100%" }}
     >
       {/* progress fill */}
       {!completed && (
@@ -98,7 +118,7 @@ export default function SlideButton({
       {!completed && (
         <motion.span
           style={{ opacity: labelOpacity }}
-          className="pointer-events-none absolute inset-0 z-[1] flex items-center justify-center text-sm font-medium text-ink-100"
+          className="pointer-events-none absolute inset-0 z-[1] flex items-center justify-center whitespace-nowrap pl-10 pr-4 text-sm font-medium text-ink-100"
         >
           {label}
         </motion.span>
@@ -109,7 +129,7 @@ export default function SlideButton({
         {!completed && (
           <motion.div
             drag="x"
-            dragConstraints={{ left: 0, right: MAX }}
+            dragConstraints={{ left: 0, right: maxX }}
             dragElastic={0.05}
             dragMomentum={false}
             onDragStart={() => setDragging(true)}

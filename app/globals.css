@@ -150,6 +150,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -158,6 +159,9 @@ body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
   overflow-x: hidden;
 }
 
@@ -290,9 +294,11 @@ body {
    Apple liquid-glass theme switcher
    ============================================================ */
 .switcher {
+  --opt: 32px; /* per-option size — compact on phones */
   position: relative;
   display: inline-flex;
   align-items: center;
+  max-width: 100%;
   margin: 0;
   padding: 4px;
   border: 1px solid var(--glass-border);
@@ -301,6 +307,11 @@ body {
   backdrop-filter: blur(12px) saturate(160%);
   -webkit-backdrop-filter: blur(12px) saturate(160%);
   isolation: isolate;
+}
+@media (min-width: 640px) {
+  .switcher {
+    --opt: 38px;
+  }
 }
 
 .switcher__legend {
@@ -321,8 +332,8 @@ body {
   position: absolute;
   top: 4px;
   left: 4px;
-  width: 38px;
-  height: 38px;
+  width: var(--opt);
+  height: var(--opt);
   border-radius: 9999px;
   background: rgb(var(--secondary));
   box-shadow:
@@ -336,18 +347,18 @@ body {
   transform: translateX(0);
 }
 .switcher:has(.switcher__input[value="dark"]:checked)::before {
-  transform: translateX(38px);
+  transform: translateX(var(--opt));
 }
 .switcher:has(.switcher__input[value="dim"]:checked)::before {
-  transform: translateX(76px);
+  transform: translateX(calc(var(--opt) * 2));
 }
 
 .switcher__option {
   position: relative;
   display: grid;
   place-items: center;
-  width: 38px;
-  height: 38px;
+  width: var(--opt);
+  height: var(--opt);
   cursor: pointer;
   z-index: 1;
 }
@@ -372,13 +383,6 @@ body {
 }
 .switcher__option:has(.switcher__input:checked) .switcher__icon {
   --c: rgb(var(--primary));
-}
-
-.switcher__filter {
-  position: absolute;
-  width: 0;
-  height: 0;
-  overflow: hidden;
 }
 
 /* Reduced motion: still the experience down */
