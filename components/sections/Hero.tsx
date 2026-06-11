@@ -80,7 +80,7 @@ export default function Hero() {
           variants={item}
           className="mt-3 font-display text-[clamp(1.5rem,4vw,2.75rem)] font-medium text-ink-300"
         >
-          I build <RotatingRole />
+          I am <RotatingRole />
         </motion.div>
 
         <motion.p
