@@ -24,6 +24,7 @@ export const projects: Project[] = [
       "Parses legacy C++ into a queryable knowledge graph — processing 20k+ RPC calls and 10k+ agent sessions globally via Smithery observability.",
       "Optimized the ingestion pipeline with multi-core distributed processing and JSON caching, accelerating AST builds 30x — 67,000 files and 1.15M+ nodes in under 10 minutes.",
       "Containerized with multi-stage Docker builds for hybrid architectures: local stdio for Claude Desktop and streamable-http cloud deploys on Hugging Face Spaces.",
+      "Designed the graph output to stay retrieval-friendly for downstream agent workflows, making legacy codebases easier to explore and query.",
     ],
     links: [{ label: "GitHub", href: "https://github.com/rohit-yadav34/LegacyGraph-MCP" }],
     span: 2,
@@ -38,6 +39,7 @@ export const projects: Project[] = [
     highlights: [
       "Built an end-to-end document-intelligence platform integrating OCR, RAG, and vector search for scalable document-processing workflows.",
       "Designed and delivered high-performance RESTful APIs deployed on GCP for low-latency interaction with large datasets.",
+      "Shaped the product around practical review and extraction flows so teams could move from raw documents to usable signals faster.",
     ],
     links: [{ label: "GitHub", href: "https://github.com/rohit-yadav34/DemystDocs.AI" }],
     span: 1,
@@ -52,6 +54,7 @@ export const projects: Project[] = [
     highlights: [
       "Designed an autonomous multi-agent system using LangGraph to orchestrate complex multi-step reasoning across distributed APIs and databases.",
       "Improved data accessibility and business decision-making via an adaptive, agent-driven framework for conversational analysis.",
+      "Kept the system modular so new tools, prompts, and backend sources could be added without reworking the orchestration layer.",
     ],
     links: [],
     org: "Lepton Software",
@@ -67,6 +70,7 @@ export const projects: Project[] = [
     highlights: [
       "Built a FastAPI backend that dynamically loads and processes data from Google Sheets, using the Gemini API for intelligent text analysis.",
       "Optimized retrieval workflows with Elasticsearch for highly accurate, real-time fuzzy matching and API-driven lookup.",
+      "Focused on a smooth analyst workflow with fast lookup responses and dependable geocoding output for messy address data.",
     ],
     links: [],
     org: "Lepton Software",

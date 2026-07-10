@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description: `View and download ${site.name}'s résumé — ${site.role}.`,
 };
 
-const DOWNLOAD_NAME = "Rohit_Yadav_Resume.pdf";
+const DOWNLOAD_NAME = "Rohit_Yadav_resume_july_2026.pdf";
 
 export default function ResumePage() {
   return (
