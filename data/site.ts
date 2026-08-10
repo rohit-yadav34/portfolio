@@ -8,7 +8,7 @@ export const site = {
     "CS undergrad at NIT Kurukshetra focused on backend engineering and applied AI. I like hard systems problems: distributed processing, retrieval pipelines, agent orchestration, and squeezing 30x out of an ingestion job. Currently building MCP servers, RAG platforms, and autonomous agents.",
   location: "Haryana, India",
   email: "rohityadav.nitkkr@gmail.com",
-  resumeUrl: "/Rohit_Yadav_resume_july_2026.pdf",
+  resumeUrl: "/Rohit_Yadav_resume_aug.pdf",
   avatar: "/file_00000000197472069b02aba54d23f882-Photoroom.png",
   education: {
     school: "National Institute of Technology, Kurukshetra",

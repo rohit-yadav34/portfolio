@@ -11,7 +11,7 @@ export const experience: ExperienceItem[] = [
   {
     company: "Accenture",
     role: "AEH Intern",
-    location: "Mumbai",
+    location: "Mumbai, India",
     period: "Jun 2026 — Jul 2026",
     highlights: [
       "Built custom AI/ML and cloud-integrated solutions for real-world client problems in a fast-moving delivery environment.",
@@ -23,7 +23,7 @@ export const experience: ExperienceItem[] = [
   {
     company: "Lepton Software",
     role: "Software Intern — Backend",
-    location: "Gurugram",
+    location: "Gurugram, India",
     period: "Jun 2025 — Aug 2025",
     highlights: [
       "Built a multi-agent AI assistant using LangGraph and Python so non-technical users could perform complex conversational data analysis.",

@@ -5,12 +5,17 @@ import {
   Brain,
   BrainCircuit,
   Braces,
+  Code2,
+  Cpu,
+  Database,
+  Layers,
   ListTree,
   Map as MapIcon,
   MapPinned,
   Network,
   Share2,
   Sparkles,
+  Terminal,
   Webhook,
 } from "lucide-react";
 import {
@@ -97,6 +102,14 @@ const ICONS: Record<string, IconMeta> = {
   GeoJSON: { Icon: MapIcon, color: "#3AA655" },
   PostGIS: { Icon: MapPinned, color: "#336791" },
   "JSON-RPC": { Icon: Braces, color: "#F7DF1E" },
+
+  // Coursework
+  "Data Structures & Algorithms": { Icon: Binary, color: "#38BDF8" },
+  "Object-Oriented Programming": { Icon: Layers, color: "#E040FB" },
+  "Database Management Systems": { Icon: Database, color: "#00E676" },
+  "Operating Systems": { Icon: Cpu, color: "#FF9100" },
+  "Computer Networks": { Icon: Network, color: "#2C7FB8" },
+  "Artificial Intelligence": { Icon: BrainCircuit, color: "#FF6F61" },
 };
 
 const FALLBACK: IconMeta = { Icon: Sparkles, color: "#C8A07A" };

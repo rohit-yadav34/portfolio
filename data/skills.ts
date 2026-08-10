@@ -9,6 +9,21 @@ export const skills: SkillGroup[] = [
     items: ["Python", "C / C++", "Java", "SQL (Postgres)", "HTML / CSS"],
   },
   {
+    label: "Concepts & Architecture",
+    items: [
+      "DSA",
+      "Machine Learning",
+      "Deep Learning",
+      "RESTful APIs",
+      "Microservices",
+      "Observability",
+      "Graph RAG",
+      "GeoJSON",
+      "PostGIS",
+      "JSON-RPC",
+    ],
+  },
+  {
     label: "Frameworks & Tools",
     items: [
       "FastAPI",
@@ -42,18 +57,14 @@ export const skills: SkillGroup[] = [
     ],
   },
   {
-    label: "Concepts & Architecture",
+    label: "Coursework",
     items: [
-      "DSA",
-      "Machine Learning",
-      "Deep Learning",
-      "RESTful APIs",
-      "Microservices",
-      "Observability",
-      "Graph RAG",
-      "GeoJSON",
-      "PostGIS",
-      "JSON-RPC",
+      "Data Structures & Algorithms",
+      "Object-Oriented Programming",
+      "Database Management Systems",
+      "Operating Systems",
+      "Computer Networks",
+      "Artificial Intelligence",
     ],
   },
 ];
