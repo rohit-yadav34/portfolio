@@ -24,8 +24,8 @@ const H1_Component: FC<H1ComponentProps> = ({ name, y_initialValue }) => {
 
 // Minimum time the intro is shown (so it never just flashes), and a hard
 // fallback in case the 3D scene is slow / unavailable (e.g. offline, mobile).
-const MIN_DURATION = 1600;
-const MAX_DURATION = 8000;
+const MIN_DURATION = 1000;
+const MAX_DURATION = 2000;
 
 export const Preloader = () => {
   const [showPreloader, setShowPreloader] = useState(true);

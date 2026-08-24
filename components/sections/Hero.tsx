@@ -7,7 +7,6 @@ import { SiCodechef } from "react-icons/si";
 import { LeetCodeLogo } from "@/components/ui/skill-logos";
 import NeonButton from "@/components/ui/NeonButton";
 import { Spotlight } from "@/components/ui/spotlight";
-import { SplineScene } from "@/components/ui/splite";
 import { site } from "@/data/site";
 
 const container = {
@@ -44,20 +43,8 @@ function RotatingRole() {
 export default function Hero() {
   return (
     <section id="top" className="relative flex min-h-[100svh] items-center px-5 pt-28">
-      {/* moving spotlight + cursor-tracking 3D robot */}
+      {/* moving spotlight ambient glow */}
       <Spotlight className="-top-20 left-10 md:left-1/3" fill="white" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-1/2 lg:block">
-        <SplineScene
-          scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-          className="pointer-events-auto h-full w-full"
-          onLoad={() => {
-            if (typeof window !== "undefined") {
-              (window as { __hero3dLoaded?: boolean }).__hero3dLoaded = true;
-              window.dispatchEvent(new Event("hero-3d-loaded"));
-            }
-          }}
-        />
-      </div>
 
       <motion.div
         variants={container}

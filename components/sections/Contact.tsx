@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Mail, Github, Linkedin, CheckCircle2, AlertCircle } from "lucide-react";
+import { Mail, Github, Linkedin, CheckCircle2, AlertCircle, ExternalLink } from "lucide-react";
 import { SiCodechef } from "react-icons/si";
 import { LeetCodeLogo } from "@/components/ui/skill-logos";
 import GlassCard from "@/components/ui/GlassCard";
@@ -15,41 +15,62 @@ type Status = "idle" | "success";
 export default function Contact() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const formRef = useRef<HTMLFormElement>(null);
 
-  // Triggered by the slide-to-send button. Throws so the button shows its
-  // error state; resolves on success so it shows the check.
+  // Triggered by the slide-to-send button.
   async function submit() {
     const form = formRef.current;
     if (!form) throw new Error("No form");
-    if (!form.reportValidity()) throw new Error("Invalid");
+    if (!form.reportValidity()) {
+      setError("Please fill in your name, valid email, and message.");
+      throw new Error("Invalid");
+    }
 
     const data = new FormData(form);
-    // honeypot
+    // honeypot check
     if (data.get("company")) return;
 
+    const name = String(data.get("name") || "");
+    const email = String(data.get("email") || "");
+    const message = String(data.get("message") || "");
+
+    setFormData({ name, email, message });
     setError("");
-    const res = await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: data.get("name"),
-        email: data.get("email"),
-        message: data.get("message"),
-      }),
-    });
-    if (!res.ok) {
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message }),
+      });
+
       const body = await res.json().catch(() => ({}));
-      const msg = body.error || "Something went wrong.";
-      setError(msg);
-      throw new Error(msg);
+
+      if (!res.ok) {
+        const msg = body.error || "Could not send. Try emailing directly.";
+        setError(msg);
+        throw new Error(msg);
+      }
+
+      setStatus("success");
+      form.reset();
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Failed to send message.";
+      if (!error) setError(msg);
+      throw err;
     }
-    setStatus("success");
-    form.reset();
   }
 
+  // Ultra-clear contrast fields matching all 3 theme color modes
   const field =
-    "w-full rounded-xl border border-white/12 bg-white/4 px-4 py-3 text-sm text-ink-100 placeholder:text-ink-500 outline-none transition-all focus:border-neon-cyan/60 focus:ring-2 focus:ring-neon-cyan/20";
+    "w-full rounded-xl border border-[var(--glass-border)] bg-[rgba(var(--bg-800),0.85)] px-4 py-3 text-sm text-[rgb(var(--text-100))] placeholder:text-[rgb(var(--text-500))] outline-none transition-all focus:border-[rgb(var(--neon-cyan))] focus:ring-2 focus:ring-[rgb(var(--neon-cyan))]/25 focus:bg-[rgb(var(--bg-800))] shadow-inner";
+
+  const mailtoLink = `mailto:${site.email}?subject=${encodeURIComponent(
+    formData.name ? `Message from ${formData.name}` : "Portfolio Inquiry"
+  )}&body=${encodeURIComponent(
+    `From: ${formData.name} (${formData.email})\n\n${formData.message}`
+  )}`;
 
   return (
     <section id="contact" className="relative mx-auto max-w-6xl px-5 py-24 sm:py-32">
@@ -68,10 +89,10 @@ export default function Contact() {
                 className="inline-flex items-center gap-3 text-ink-100 transition-colors hover:text-neon-cyan"
               >
                 <Mail size={20} className="text-neon-cyan" />
-                <span className="text-sm">{site.email}</span>
+                <span className="text-sm font-medium">{site.email}</span>
               </a>
               <p className="mt-6 text-sm leading-relaxed text-ink-300">
-                Prefer a quick DM? I'm active on these. I usually reply within a day.
+                Prefer a quick DM? I'm active on these platforms and usually reply within 24 hours.
               </p>
             </div>
 
@@ -108,9 +129,9 @@ export default function Contact() {
                 </p>
                 <button
                   onClick={() => setStatus("idle")}
-                  className="mt-6 text-sm text-neon-cyan hover:underline"
+                  className="mt-6 text-sm font-medium text-neon-cyan hover:underline"
                 >
-                  Send another
+                  Send another message
                 </button>
               </div>
             ) : (
@@ -126,13 +147,22 @@ export default function Contact() {
                 />
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
-                    <label htmlFor="name" className="mb-1.5 block text-xs text-ink-300">
+                    <label htmlFor="name" className="mb-1.5 block text-xs font-medium text-ink-300">
                       Name
                     </label>
-                    <input id="name" name="name" required placeholder="Jane Doe" className={field} />
+                    <input
+                      id="name"
+                      name="name"
+                      required
+                      placeholder="Your Name"
+                      className={field}
+                      onChange={(e) =>
+                        setFormData((prev) => ({ ...prev, name: e.target.value }))
+                      }
+                    />
                   </div>
                   <div>
-                    <label htmlFor="email" className="mb-1.5 block text-xs text-ink-300">
+                    <label htmlFor="email" className="mb-1.5 block text-xs font-medium text-ink-300">
                       Email
                     </label>
                     <input
@@ -140,13 +170,16 @@ export default function Contact() {
                       name="email"
                       type="email"
                       required
-                      placeholder="jane@company.com"
+                      placeholder="your.email@example.com"
                       className={field}
+                      onChange={(e) =>
+                        setFormData((prev) => ({ ...prev, email: e.target.value }))
+                      }
                     />
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="message" className="mb-1.5 block text-xs text-ink-300">
+                  <label htmlFor="message" className="mb-1.5 block text-xs font-medium text-ink-300">
                     Message
                   </label>
                   <textarea
@@ -154,18 +187,29 @@ export default function Contact() {
                     name="message"
                     required
                     rows={5}
-                    placeholder="Tell me about the role or idea…"
+                    placeholder="Tell me about the role, project, or collaboration…"
                     className={`${field} resize-none`}
+                    onChange={(e) =>
+                      setFormData((prev) => ({ ...prev, message: e.target.value }))
+                    }
                   />
                 </div>
 
                 {error && (
-                  <p className="flex items-center gap-2 text-sm text-neon-fuchsia">
-                    <AlertCircle size={16} /> {error}
-                  </p>
+                  <div className="rounded-lg border border-red-500/20 bg-red-500/10 p-3 text-xs text-red-300">
+                    <p className="flex items-center gap-2 font-medium">
+                      <AlertCircle size={15} className="shrink-0" /> {error}
+                    </p>
+                    <a
+                      href={mailtoLink}
+                      className="mt-2 inline-flex items-center gap-1.5 font-medium text-neon-cyan hover:underline"
+                    >
+                      <ExternalLink size={13} /> Open in your email client instead
+                    </a>
+                  </div>
                 )}
 
-                <div className="flex justify-center pt-1">
+                <div className="flex justify-center pt-2">
                   <SlideButton label="Slide to send" onComplete={submit} />
                 </div>
               </form>
